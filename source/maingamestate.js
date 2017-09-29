@@ -131,6 +131,9 @@ mainGameState.update = function() {
 
 //Collisions - Om man skjuter Spirit    
     game.physics.arcade.collide(this.playerBullets, this.spirit, this.onFireSpiritCollision, null, this);
+
+//Om Chuchu Överlever ända ner
+    game.physics.arcade.collide(this.playerBullets, this.spirit, this.onFireSpiritCollision, null, this);
     
 //Men detta tillhör ovan
     this.scoreValue.setText(this.playerScore);    
@@ -242,6 +245,12 @@ mainGameState.onFireSpiritCollision = function(object1, object2) {
         object1.pendingDestroy = true;
     } else {
         object2.pendingDestroy = true;
+    }
+        this.lives -= 1;
+}
+    
+mainGameState.onChuchusSurvival = function(object1, object2) {
+    if ( object1.key.includes("asteroid") ) {
     }
         this.lives -= 1;
     }   
