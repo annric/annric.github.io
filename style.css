@@ -1,0 +1,47 @@
+body {
+    margin: 0px;
+    padding: 0px;
+    background: black
+}
+
+.topBar {
+    background-color: #454545;
+    padding: 10px;
+    color: #cccccc;
+    height: 34px;
+}
+
+.topBar h1 {
+	float: left;
+    margin: 0px;
+    padding-bottom: 10px;
+    font-family: "Century Gothic";
+    font-size: 26px;    
+    font-weight: normal;
+    text-align: center;
+    color: #eeeeee;
+}
+
+.topBar .author {
+	float: right;
+	padding-top: 10px;
+	font-family: Arial;
+	font-size: 14px;
+	text-align: center;
+}
+
+.topBar a {
+	color: white;
+	text-decoration: none;
+}
+
+.topBar a:hover {
+	text-decoration: underline;
+}
+
+#gameContainer {}
+
+#gameContainer canvas {
+    margin: 20px auto;
+    border: solid #565656 2px
+}

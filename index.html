@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    <title>Space Avengers</title>
+    <link href="style.css" rel="stylesheet" />
+
+    <!-- Load Phaser -->
+    <script src="libs/phaser.min.js"></script>
+    
+    <!-- Load our Source Code -->
+    <script src="source/maingamestate.js"></script>
+    <script src="source/gameoverstate.js"></script>
+</head>
+
+<body>
+    <div class="topBar">
+        <h1>The Battle of Chuchus</h1>
+        <div class="author">A Phaser game by <a href="http://www.johnwordsworth.com">Anni Richt</a></span>
+    </div>
+
+    <div style="clear: both"></div>    
+    <div id="gameContainer"></div>
+    
+    <script>
+        var game = new Phaser.Game(400, 600, Phaser.AUTO, 'gameContainer');
+
+        // Register Game States
+        game.state.add('MainGame', mainGameState);
+        game.state.add('GameOver', gameOverState);
+
+        // Start with the MainGame State
+        game.state.start("MainGame");
+    </script>
+</body>
+</html>
