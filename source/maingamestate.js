@@ -39,7 +39,7 @@ mainGameState.create = function() {
     this.music = game.add.audio("game-music");
     this.music.play();
     this.music.volume = 0.9;
-    this.music.loopFull();     
+    this.music.loop/*Full*/();     
     
     this.asteroidTimer = 2.0;   
     this.asteroids = game.add.group();   
