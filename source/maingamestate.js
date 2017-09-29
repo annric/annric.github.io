@@ -90,7 +90,7 @@ mainGameState.update = function() {
     if ( this.cursors.left.isDown ) {
         this.playerShip.body.velocity.x = -200;
     } else if ( this.cursors.right.isDown ) {
-        this.playerShip.body.velocity.x = 200;
+        this.playerShip.body.velocity.x = 300;
     } else {
         this.playerShip.body.velocity.x = 0;
     }
@@ -128,6 +128,9 @@ mainGameState.update = function() {
     
 //Collision - För Spirits
     game.physics.arcade.collide(this.playerShip, this.spirit, this.onPlayerSpiritCollision, null, this);
+
+//Collisions - Om man skjuter Spirit    
+    game.physics.arcade.collide(this.playerBullets, this.spirit, this.onFireSpiritCollision, null, this);
     
 //Men detta tillhör ovan
     this.scoreValue.setText(this.playerScore);    
@@ -184,7 +187,7 @@ mainGameState.spawnAsteroid = function() {
     var asteroid = game.add.sprite(x, 0, chuchus[whichChuchu]);
     asteroid.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(asteroid);
-    asteroid.body.velocity.setTo(0, 100);
+    asteroid.body.velocity.setTo(0, 150);
 
     // Add to the 'asteroids' group
     this.asteroids.add(asteroid);
@@ -215,7 +218,7 @@ mainGameState.spawnSpirit= function() {
     var spirit = game.add.sprite(x, 0, "spirit");
     spirit.anchor.setTo(0.5, 0.5);
     game.physics.arcade.enable(spirit);
-    spirit.body.velocity.setTo(0, 100);
+    spirit.body.velocity.setTo(0, 400);
 
     // Add to the 'spirit' group
     this.spirit.add(spirit);    
@@ -233,3 +236,12 @@ mainGameState.onPlayerSpiritCollision = function(object1, object2) {
     }   
 
 }
+
+mainGameState.onFireSpiritCollision = function(object1, object2) {
+    if ( object1.key.includes("spirit") ) {
+        object1.pendingDestroy = true;
+    } else {
+        object2.pendingDestroy = true;
+    }
+        this.lives -= 1;
+    }   
