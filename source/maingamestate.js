@@ -65,9 +65,7 @@ mainGameState.create = function() {
 
     this.scoreValue = game.add.text(game.width * 0.75, 30, "0", textStyle);
     this.scoreValue.fixedToCamera = true;
-    this.scoreValue.anchor.setTo(0.5, 0.5);
-
-    this.playerScore = 0;    
+    this.scoreValue.anchor.setTo(0.5, 0.5); 
     
     this.livesTitle = game.add.text(game.width * 0.25, 10, "LIVES", textStyle);
     this.livesTitle.fixedToCamera = true;
@@ -80,6 +78,9 @@ mainGameState.create = function() {
     game.physics.arcade.enable(this.playerShip);
 
     this.lives = 3;
+    this.timePerChuchu = 1.0; 
+    
+    this.difficultyTimer = 10;
     
     //NYYY SPIRITS
     this.spiritTimer = 8.0;   
@@ -99,13 +100,23 @@ mainGameState.update = function() {
 
     if ( this.asteroidTimer <= 0.0 ) {
         this.spawnAsteroid();
-        this.asteroidTimer = 2.0;
-    }    
+        this.asteroidTimer = this.timePerChuchu;
+    } 
+    
+    this.difficultyTimer -= game.time.physicsElapsed;
+    
+    if (this.difficultyTimer <= 0.0) {
+        this.difficultyTimer = 10;
+        this.timePerChuchu *= 0.95;
+    }
+
+
         
     // Clean up any asteroids that have moved off the bottom of the screen
     for( var i = 0; i < this.asteroids.children.length; i++ ) {
         if ( this.asteroids.children[i].y > (game.height + 200) ) {
             this.asteroids.children[i].destroy();
+            this.lives -= 1;
         }
     }  
     
@@ -132,11 +143,11 @@ mainGameState.update = function() {
 //Collisions - Om man skjuter Spirit    
     game.physics.arcade.collide(this.playerBullets, this.spirit, this.onFireSpiritCollision, null, this);
 
-//Om Chuchu Överlever ända ner
-    game.physics.arcade.collide(this.playerBullets, this.spirit, this.onFireSpiritCollision, null, this);
+//Om Chuchu Överlever ända ner . NYA!!! 
+
     
 //Men detta tillhör ovan
-    this.scoreValue.setText(this.playerScore);    
+    this.scoreValue.setText(game.global.score);    
     this.livesValue.setText(this.lives);   
     
     if ( this.lives <= 0 ) {
@@ -200,7 +211,7 @@ mainGameState.onAsteroidBulletCollision = function(object1, object2) {
     object1.pendingDestroy = true;
     object2.pendingDestroy = true;
     
-    this.playerScore += 50;    
+    game.global.score += 50;    
 }
 
 mainGameState.onPlayerAsteroidCollision = function(object1, object2) {
@@ -248,9 +259,3 @@ mainGameState.onFireSpiritCollision = function(object1, object2) {
     }
         this.lives -= 1;
 }
-    
-mainGameState.onChuchusSurvival = function(object1, object2) {
-    if ( object1.key.includes("asteroid") ) {
-    }
-        this.lives -= 1;
-    }   

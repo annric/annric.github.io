@@ -16,10 +16,10 @@ gameOverState.create = function() {
     this.title.fixedToCamera = true;
     this.title.anchor.setTo(0.5, 0.5);  
     
-    var scoreTitle = game.add.text(game.width * 0.5, game.height * 0.6, "Your Score");
+    var scoreTitle = game.add.text(game.width * 0.22, game.height * 0.3, "Your Score", textStyle);
     scoreTitle.anchor.setTo(0.5, 0.5);
 
-    var scoreValue = game.add.text(game.width * 0.5, game.height * 0.8, score);
+    var scoreValue = game.add.text(game.width * 0.22, game.height * 0.35, game.global.score, textStyle);
     scoreValue.anchor.setTo(0.5, 0.5);
 
     this.restartKey = game.input.keyboard.addKey(Phaser.Keyboard.Z);
